@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>SPRING BOOT</title>
+</head>
+<body>
+
+	<h2>COURSES</h2>
+	<br>
+
+	<table border="5" bordercolor="#ff0000">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Price</th>
+				<th>Hours</th>
+				<th>Update</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody th:each="course : ${courses}">
+			<tr>
+				<td th:text="${course.name}"></td>
+				<td th:text="${course.description}"></td>
+				<td th:text="${course.price}"></td>
+				<td th:text="${course.hours}"></td>
+				<td> <a href="#" th:href="@{/courses/updatecourse(name=${course.name})}">Update</a> </td>
+				<td> <a href="#" th:href="@{/courses/deletecourse(name=${course.name})}">Delete</a> </td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<br>
+	<form action="#" th:action="@{/courses/addcourse}" th:object="${coursemodel}" method="post">
+		<p>Name: <input th:remove="*{su} ? tag : none" type="text" th:field="*{name}" />
+		<input th:remove="*{su} ? none : tag" th:disabled="true" type="text" th:field="*{name}" />
+		</p>
+		<p>Description: <input  type="text" th:field="*{description}" /></p>
+		<p>Price: <input  type="number" th:field="*{price}" /></p>
+		<p>Hours: <input  type="number" th:field="*{hours}" /></p>
+		<p><input   type="hidden" th:field="*{su}" /></p>
+		<p><input   type="hidden" th:field="*{name}" /></p>
+		
+		<p><input  type="Submit" value="Submit" /></p>
+	</form>
+</body>
+</html>
